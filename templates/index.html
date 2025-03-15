@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <script>
+        async function signUp() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            
+            let response = await fetch('/signup', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email, password})
+            });
+
+            let data = await response.json();
+            alert(data.error ? data.error.message : "تم إنشاء الحساب بنجاح!");
+        }
+
+        async function login() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            
+            let response = await fetch('/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email, password})
+            });
+
+            let data = await response.json();
+            alert(data.error ? data.error.message : "تم تسجيل الدخول بنجاح!");
+            if (!data.error) window.location.reload();
+        }
+    </script>
+</head>
+<body>
+    <h1>4you2</h1>
+    <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني"><br>
+    <input type="password" id="password" placeholder="أدخل كلمة المرور"><br>
+    <button onclick="signUp()">إنشاء حساب</button>
+    <button onclick="login()">تسجيل الدخول</button>
+</body>
+</html>
